@@ -111,7 +111,7 @@ Response:
 - type ApiClient::HOST2HOST:
 ```
 array {
-  ["URL"] => string "https://www.avangard.ru/iacq/pay"
+  ["URL"] => string "https://pay.avangard.ru/iacq/pay"
   ["METHOD"] => string "get"
   ["INPUTS"] => array {
     ["TICKET"] => string "JGceLCtt000012682687LskJXuIpbfmpgeeKgkcj"
@@ -121,7 +121,7 @@ array {
 - type ApiClient::POSTFORM:
 ```
 array {
-  ["URL"] => string "https://www.avangard.ru/iacq/post"
+  ["URL"] => string "https://pay.avangard.ru/iacq/post"
   ["METHOD"] => string "post"
   ["INPUTS"] => array {
     ["SHOP_ID"] => string "1"
@@ -137,7 +137,7 @@ array {
 ```
 - type ApiClient::GETURL:
 ```
-string "https://www.avangard.ru/iacq/pay?ticket=JGceLCtt000012682687LskJXuIpbfmpgeeKgkcj"
+string "https://pay.avangard.ru/iacq/pay?ticket=JGceLCtt000012682687LskJXuIpbfmpgeeKgkcj"
 ```
     
 Example:
