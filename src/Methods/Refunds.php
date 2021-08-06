@@ -47,9 +47,9 @@ trait Refunds
 
         $response = $result->getBody()->getContents();
 
-        error_reporting(1); //Колхоз
+        error_reporting(1); 
         $resultObject = Convertor::covertToArray($response);
-        error_reporting(E_ALL); //Колхоз
+        error_reporting(E_ALL);
 
         if(!isset($resultObject['response_code'])) {
             throw new \InvalidArgumentException(
@@ -93,9 +93,9 @@ trait Refunds
 
         $response = $result->getBody()->getContents();
 
-        error_reporting(1); //Колхоз
+        error_reporting(1);
         $resultObject = Convertor::covertToArray($response);
-        error_reporting(E_ALL); //Колхоз
+        error_reporting(E_ALL);
 
         if(!isset($resultObject['response_code'])) {
             throw new \InvalidArgumentException(
