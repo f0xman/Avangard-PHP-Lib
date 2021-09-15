@@ -147,6 +147,7 @@ trait Orders
                 $this->checkOrder();
                 $inputs = $this->getOrder();
                 $inputs['SIGNATURE'] = $this->signRequest();
+                unset($inputs['SHOP_PASSWD']);
                 break;
             case ApiClient::GETURL:
                 $inputs = $this->orderRegister($order);
