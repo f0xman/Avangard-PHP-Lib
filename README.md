@@ -103,9 +103,9 @@ Params:
     - CLIENT_PHONE (string) телефон плательщика
     - CLIENT_IP (string) ip-адрес плательщика
 - type:
-    - ApiClient::HOST2HOST
-    - ApiClient::POSTFORM
-    - ApiClient::GETURL
+    - ApiClient::HOST2HOST (Регистрирует заказ в интернет-эквайринге и возвращает TICKET-параметр для последующей оплаты заказа)
+    - ApiClient::POSTFORM (Подготавливает параметры для HTML формы оплаты, показываемой на стороне клиента - часто требуется для CMS)
+    - ApiClient::GETURL (Регистрирует заказ в интернет-эквайринге и возвращает ссылку для последующей оплаты заказа)
     
 Response:
 - type ApiClient::HOST2HOST:
@@ -140,7 +140,7 @@ array {
 string "https://pay.avangard.ru/iacq/pay?ticket=JGceLCtt000012682687LskJXuIpbfmpgeeKgkcj"
 ```
     
-Example:
+Example HOST2HOST/GETURL:
 ```php
 <?php
 require_once "vendor/autoload.php";
@@ -169,6 +169,56 @@ try {
         \Avangard\Lib\Logger::log($e);
     }
 }
+```
+
+Example POSTFORM:
+```php
+<?php
+require_once "vendor/autoload.php";
+
+use Avangard\ApiClient;
+
+$new = new ApiClient(
+    1,
+    'pass',
+    'sign1',
+    'sign2'
+);
+
+$mass = [
+    'AMOUNT' => 15,
+    'ORDER_NUMBER' => 'sa123',
+    'ORDER_DESCRIPTION' => 'lalala',
+    'BACK_URL' => 'http://example.ru/payments.php/avangard/?result=success'
+];
+$rez = $new->request->prepareForms($mass, ApiClient::POSTFORM);
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="expires" content="Mon, 26 Jul 1997 05:00:00 GMT"/>
+    <title>Авангард Интернет Эквайринг </title>
+</head>
+<body>
+<div style="width: 30%; margin: 50px auto 50px;">
+    <?php
+    echo '<form id="FORM" action="' . $rez['URL'] . '" method="' . $rez['METHOD'] . '">';
+    ?>
+        <?php
+        foreach ($rez['INPUTS'] as $key => $value) {
+            echo '<input name="' . $key . '" value="' . $value . '" type="hidden">';
+        }
+        ?>
+        <div style="text-align: center; margin-top: 30px;">
+            <input type="submit" value="ОПЛАТИТЬ" class="btn"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>
 ```
 
 2. orderRegister - also you can register order in the bank's system and get ticket.
