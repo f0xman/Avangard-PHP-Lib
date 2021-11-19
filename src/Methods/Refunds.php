@@ -59,7 +59,7 @@ trait Refunds
 
         if (isset($resultObject['rev_id'])) {
             try {
-                $maxRequestsCount = 5;
+                $maxRequestsCount = 8;
                 $secondsBetweenRequests = 5;
 
                 for ($i = 0; $i < $maxRequestsCount; $i++) {
