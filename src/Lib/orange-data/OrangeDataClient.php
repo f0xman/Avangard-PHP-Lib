@@ -72,7 +72,26 @@ class OrangeDataClient
         $this->client_cert_pass = (string)$params['ssl_client_crt_pass'];
         $this->debug_file = getcwd() . '/curl.log';
         $proxy = $client->getConfig();
-        $this->proxy = (!empty($proxy['proxy']) && !is_array($proxy['proxy']) ? $proxy['proxy'] : (is_array($proxy['proxy']) && !empty($proxy['proxy']['http']) ? $proxy['proxy']['http'] : null));
+        $this->proxy = isset($proxy['proxy']) ? $this->get_proxy($proxy['proxy']) : null;
+    }
+
+    private function get_proxy($proxy)
+    {
+        if (!empty($proxy) && !is_array($proxy)) {
+            return $proxy;
+        }
+
+        if (is_array($proxy)) {
+            if (isset($proxy['http']) && !empty($proxy['http'])) {
+                return $proxy['http'];
+            }
+
+            if (isset($proxy['https']) && !empty($proxy['https'])) {
+                return $proxy['https'];
+            }
+        }
+
+        return null;
     }
 
     /**

@@ -34,6 +34,12 @@ class Orangedata implements BoxInterface
      * @var mixed
      */
     protected $inn;
+    /**
+     * OrangeData group
+     *
+     * @var mixed
+     */
+    protected $group;
 
     /**
      * orangedata constructor.
@@ -48,6 +54,7 @@ class Orangedata implements BoxInterface
 
         $this->inn = $auth['inn'];
         $this->taxationSystem = $auth['sno'];
+        $this->group = $auth['group'];
 
         //ToDo: check connection
         $result = $this->client->check_connection();
@@ -74,7 +81,7 @@ class Orangedata implements BoxInterface
             'customerContact' => (!empty($data['client']['email']) ? $data['client']['email'] : $data['client']['phone']),
             'taxationSystem' => $this->taxationSystem,
             'key' => $this->inn,
-            'group' => 'Main'
+            'group' => $this->group,
         ]);
 
         foreach ($data['items'] as $i => $val) {
