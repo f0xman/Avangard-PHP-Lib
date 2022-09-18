@@ -17,7 +17,7 @@
         "ext-curl": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
-        "guzzlehttp/guzzle": "^6.4",
+        "guzzlehttp/guzzle": "^7.2",
         "psr/log": "^1.0.2"
     },
     "autoload": {
